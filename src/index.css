@@ -2,89 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Mars Rover Explorer - Spatial Design System
+/* Mars Rover Explorer - Mars Theme Design System
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Spatial Black Theme */
-    --background: 220 20% 5%;
-    --foreground: 0 0% 98%;
+    /* Mars Theme - Red/Orange Palette */
+    --background: 15 25% 8%;
+    --foreground: 25 15% 95%;
 
-    --card: 220 15% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 15 20% 12%;
+    --card-foreground: 25 10% 92%;
 
-    --popover: 220 15% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 15 20% 12%;
+    --popover-foreground: 25 10% 92%;
 
-    /* Electric Blue Primary */
-    --primary: 210 100% 60%;
-    --primary-foreground: 220 20% 5%;
+    /* Mars Red Primary */
+    --primary: 15 85% 55%;
+    --primary-foreground: 15 25% 8%;
 
-    /* Dark Secondary */
-    --secondary: 220 15% 12%;
-    --secondary-foreground: 0 0% 90%;
+    /* Dark Orange Secondary */
+    --secondary: 25 30% 15%;
+    --secondary-foreground: 25 10% 88%;
 
-    --muted: 220 15% 10%;
-    --muted-foreground: 215 15% 60%;
+    --muted: 20 20% 12%;
+    --muted-foreground: 20 15% 65%;
 
-    /* Cyan Accent */
-    --accent: 180 100% 50%;
-    --accent-foreground: 220 20% 5%;
+    /* Orange Accent */
+    --accent: 25 90% 60%;
+    --accent-foreground: 15 25% 8%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 15%;
-    --input: 220 15% 12%;
-    --ring: 210 100% 60%;
+    --border: 20 20% 18%;
+    --input: 20 15% 15%;
+    --ring: 15 85% 55%;
 
     --radius: 0.75rem;
 
-    /* Spatial Gradients */
-    --gradient-space: linear-gradient(135deg, hsl(220 20% 5%), hsl(230 25% 8%));
-    --gradient-nebula: linear-gradient(45deg, hsl(210 100% 60% / 0.1), hsl(180 100% 50% / 0.1));
-    --gradient-mars: linear-gradient(135deg, hsl(15 80% 40%), hsl(25 90% 50%));
+    /* Mars Gradients */
+    --gradient-mars: linear-gradient(135deg, hsl(15 25% 8%), hsl(25 30% 12%));
+    --gradient-dust: linear-gradient(45deg, hsl(15 85% 55% / 0.1), hsl(25 90% 60% / 0.1));
+    --gradient-sunset: linear-gradient(135deg, hsl(15 85% 55%), hsl(25 90% 60%));
     
-    /* Spatial Shadows */
-    --shadow-glow: 0 0 20px hsl(210 100% 60% / 0.3);
-    --shadow-deep: 0 10px 30px -5px hsl(220 20% 0% / 0.8);
+    /* Mars Shadows */
+    --shadow-mars: 0 0 25px hsl(15 85% 55% / 0.3);
+    --shadow-dust: 0 10px 30px -5px hsl(15 25% 0% / 0.8);
     
     /* Animations */
-    --transition-spatial: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-mars: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     --transition-glow: all 0.3s ease-out;
   }
 
   .dark {
-    /* Same as light theme since we use spatial dark theme by default */
-    --background: 220 20% 5%;
-    --foreground: 0 0% 98%;
+    /* Mars theme in dark mode too */
+    --background: 15 25% 8%;
+    --foreground: 25 15% 95%;
 
-    --card: 220 15% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 15 20% 12%;
+    --card-foreground: 25 10% 92%;
 
-    --popover: 220 15% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 15 20% 12%;
+    --popover-foreground: 25 10% 92%;
 
-    --primary: 210 100% 60%;
-    --primary-foreground: 220 20% 5%;
+    --primary: 15 85% 55%;
+    --primary-foreground: 15 25% 8%;
 
-    --secondary: 220 15% 12%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 25 30% 15%;
+    --secondary-foreground: 25 10% 88%;
 
-    --muted: 220 15% 10%;
-    --muted-foreground: 215 15% 60%;
+    --muted: 20 20% 12%;
+    --muted-foreground: 20 15% 65%;
 
-    --accent: 180 100% 50%;
-    --accent-foreground: 220 20% 5%;
+    --accent: 25 90% 60%;
+    --accent-foreground: 15 25% 8%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 15%;
-    --input: 220 15% 12%;
-    --ring: 210 100% 60%;
+    --border: 20 20% 18%;
+    --input: 20 15% 15%;
+    --ring: 15 85% 55%;
   }
 }
 
@@ -129,13 +129,13 @@ All colors MUST be HSL.
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Spatial glow effect */
+/* Mars glow effect */
   .glow-text {
-    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+    text-shadow: 0 0 15px hsl(var(--primary) / 0.6);
   }
 
-  /* Spatial button variants */
-  .btn-spatial {
-    @apply bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary hover:to-accent transition-all duration-300 shadow-glow;
+  /* Mars button variants */
+  .btn-mars {
+    @apply bg-gradient-sunset hover:shadow-mars transition-all duration-300;
   }
 }

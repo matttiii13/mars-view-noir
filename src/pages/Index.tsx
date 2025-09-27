@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useRoverPhotos } from '@/hooks/useNASAApi';
+import { useCuriosityPhotos } from '@/hooks/useNASAApi';
 import { RoverPhoto } from '@/types/nasa';
-import StarField from '@/components/StarField';
-import FilterBar from '@/components/FilterBar';
+import StarField from '@/components/MarsStars';
+import CuriosityFilters from '@/components/CuriosityFilters';
 import RoverCard from '@/components/RoverCard';
 import PhotoModal from '@/components/PhotoModal';
 import { Button } from '@/components/ui/button';
@@ -10,17 +10,17 @@ import { Loader2, AlertCircle, Rocket } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
-  const [selectedRover, setSelectedRover] = useState('curiosity');
   const [selectedCamera, setSelectedCamera] = useState('all');
   const [selectedDate, setSelectedDate] = useState('');
+  const [selectedSol, setSelectedSol] = useState('');
   const [page, setPage] = useState(1);
   const [selectedPhoto, setSelectedPhoto] = useState<RoverPhoto | null>(null);
   const [allPhotos, setAllPhotos] = useState<RoverPhoto[]>([]);
 
-  const { data, isLoading, error, refetch } = useRoverPhotos({
-    rover: selectedRover,
+  const { data, isLoading, error, refetch } = useCuriosityPhotos({
     camera: selectedCamera,
     earthDate: selectedDate,
+    sol: selectedSol,
     page,
   });
 
@@ -39,11 +39,6 @@ const Index = () => {
     setAllPhotos([]);
   };
 
-  const handleRoverChange = (rover: string) => {
-    setSelectedRover(rover);
-    handleFilterChange();
-  };
-
   const handleCameraChange = (camera: string) => {
     setSelectedCamera(camera);
     handleFilterChange();
@@ -51,13 +46,20 @@ const Index = () => {
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
+    setSelectedSol(''); // Clear sol when date is set
+    handleFilterChange();
+  };
+
+  const handleSolChange = (sol: string) => {
+    setSelectedSol(sol);
+    setSelectedDate(''); // Clear date when sol is set
     handleFilterChange();
   };
 
   const handleReset = () => {
-    setSelectedRover('curiosity');
     setSelectedCamera('all');
     setSelectedDate('');
+    setSelectedSol('');
     handleFilterChange();
   };
 
@@ -68,7 +70,7 @@ const Index = () => {
   const hasMorePhotos = data?.photos && data.photos.length === 25; // NASA API returns 25 photos per page
 
   return (
-    <div className="min-h-screen bg-gradient-space relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-mars relative overflow-hidden">
       <StarField />
       
       <div className="relative z-10">
@@ -77,34 +79,33 @@ const Index = () => {
           <div className="container mx-auto px-6 py-8">
             <div className="text-center">
               <div className="flex items-center justify-center gap-3 animate-float">
-                <Rocket className="w-8 h-8 text-primary" />
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground font-mono">
-                  Mars Rover Explorer
+                <Rocket className="w-8 h-8 text-primary animate-glow" />
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground font-mono glow-text">
+                  Curiosity Mars Explorer
                 </h1>
               </div>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Explorez les merveilles de Mars à travers les yeux des rovers de la NASA
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
+                Découvrez Mars à travers les yeux du rover Curiosity de la NASA
               </p>
               <div className="mt-4 p-3 bg-secondary/30 rounded-lg border border-border/50 max-w-3xl mx-auto">
                 <p className="text-sm text-muted-foreground">
-                  ℹ️ Utilisation de l'API démo NASA avec limitations. 
-                  Date par défaut: 15 juin 2023. Sélectionnez une date spécifique pour explorer d'autres photos.
+                  🔴 Mission Curiosity active depuis 2012 • Plus de 400 000 photos capturées
                 </p>
               </div>
-              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-4" />
+              <div className="h-px w-32 bg-gradient-sunset mx-auto mt-4" />
             </div>
           </div>
         </header>
 
         {/* Main Content */}
         <main className="container mx-auto px-6 py-8 space-y-8">
-          <FilterBar
-            selectedRover={selectedRover}
+          <CuriosityFilters
             selectedCamera={selectedCamera}
             selectedDate={selectedDate}
-            onRoverChange={handleRoverChange}
+            selectedSol={selectedSol}
             onCameraChange={handleCameraChange}
             onDateChange={handleDateChange}
+            onSolChange={handleSolChange}
             onReset={handleReset}
           />
 
@@ -161,7 +162,7 @@ const Index = () => {
                         onClick={loadMore}
                         disabled={isLoading}
                         variant="outline"
-                        className="border-primary/50 hover:bg-primary/10 hover:border-primary"
+                        className="border-primary/50 hover:bg-primary/10 hover:border-primary hover:shadow-mars transition-all duration-300"
                       >
                         {isLoading ? (
                           <>

@@ -6,36 +6,40 @@ const NASA_API_KEY = 'ND82eSeT3GHG9KAXe5xLI6JDPH4smLWbfKLIMwZy';
 const BASE_URL = 'https://api.nasa.gov/mars-photos/api/v1';
 
 interface UseRoverPhotosParams {
-  rover: string;
   camera?: string;
   earthDate?: string;
+  sol?: string;
   page?: number;
 }
 
-export const useRoverPhotos = ({ rover, camera, earthDate, page = 1 }: UseRoverPhotosParams) => {
+export const useCuriosityPhotos = ({ camera, earthDate, sol, page = 1 }: UseRoverPhotosParams) => {
   const buildUrl = () => {
-    // Use a default date if none is provided to ensure we get photos
-    // Using a date that's more likely to have photos for most rovers
-    const defaultDate = '2023-06-15'; // Mid-2023 date with activity
-    const dateToUse = earthDate || defaultDate;
-    
-    const targetRover = rover === 'all' ? 'curiosity' : rover;
+    // Use a default date if neither earthDate nor sol is provided
+    const defaultDate = '2023-06-15';
     
     const params = new URLSearchParams({
       api_key: NASA_API_KEY,
       page: page.toString(),
-      earth_date: dateToUse,
     });
+    
+    // Prioritize sol over earth_date if both are provided
+    if (sol && sol.trim() !== '') {
+      params.append('sol', sol);
+    } else if (earthDate && earthDate.trim() !== '') {
+      params.append('earth_date', earthDate);
+    } else {
+      params.append('earth_date', defaultDate);
+    }
     
     if (camera && camera !== 'all') {
       params.append('camera', camera);
     }
     
-    return `${BASE_URL}/rovers/${targetRover}/photos?${params}`;
+    return `${BASE_URL}/rovers/curiosity/photos?${params}`;
   };
 
   return useQuery<NASAApiResponse>({
-    queryKey: ['rover-photos', rover, camera, earthDate, page],
+    queryKey: ['curiosity-photos', camera, earthDate, sol, page],
     queryFn: async () => {
       const response = await fetch(buildUrl());
       if (!response.ok) {
@@ -46,7 +50,6 @@ export const useRoverPhotos = ({ rover, camera, earthDate, page = 1 }: UseRoverP
       }
       return response.json();
     },
-    enabled: !!rover,
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: (failureCount, error) => {
       // Don't retry on rate limit errors
