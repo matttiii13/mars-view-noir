@@ -109,16 +109,21 @@ const Index = () => {
           </div>
         </header>
 
+        {/* Sticky Filters */}
+        <div className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm border-b border-border/20 shadow-md">
+          <div className="container mx-auto px-6 py-4">
+            <CuriosityFilters
+              selectedCamera={selectedCamera}
+              selectedSol={selectedSol}
+              onCameraChange={handleCameraChange}
+              onSolChange={handleSolChange}
+              onReset={handleReset}
+            />
+          </div>
+        </div>
+
         {/* Main Content */}
         <main className="container mx-auto px-6 py-8 space-y-8">
-          <CuriosityFilters
-            selectedCamera={selectedCamera}
-            selectedSol={selectedSol}
-            onCameraChange={handleCameraChange}
-            onSolChange={handleSolChange}
-            onReset={handleReset}
-          />
-
           {error && (
             <Alert className="bg-destructive/10 border-destructive/20">
               <AlertCircle className="h-4 w-4" />
