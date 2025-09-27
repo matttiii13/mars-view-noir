@@ -75,7 +75,7 @@ const Index = () => {
         {/* Header */}
         <header className="border-b border-border/20 bg-card/10 backdrop-blur-sm">
           <div className="container mx-auto px-6 py-8">
-            <div className="text-center space-y-4">
+            <div className="text-center">
               <div className="flex items-center justify-center gap-3 animate-float">
                 <Rocket className="w-8 h-8 text-primary" />
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground font-mono">
@@ -85,7 +85,13 @@ const Index = () => {
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Explorez les merveilles de Mars à travers les yeux des rovers de la NASA
               </p>
-              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+              <div className="mt-4 p-3 bg-secondary/30 rounded-lg border border-border/50 max-w-3xl mx-auto">
+                <p className="text-sm text-muted-foreground">
+                  ℹ️ Utilisation de l'API démo NASA avec limitations. 
+                  Date par défaut: 15 juin 2023. Sélectionnez une date spécifique pour explorer d'autres photos.
+                </p>
+              </div>
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-4" />
             </div>
           </div>
         </header>

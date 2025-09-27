@@ -14,29 +14,24 @@ interface UseRoverPhotosParams {
 
 export const useRoverPhotos = ({ rover, camera, earthDate, page = 1 }: UseRoverPhotosParams) => {
   const buildUrl = () => {
-    if (rover === 'all') {
-      // For "all rovers", we'll fetch from Curiosity by default
-      // In a real app, you might want to fetch from multiple rovers and combine
-      const params = new URLSearchParams({
-        api_key: NASA_API_KEY,
-        page: page.toString(),
-      });
-      
-      if (camera && camera !== 'all') params.append('camera', camera);
-      if (earthDate) params.append('earth_date', earthDate);
-      
-      return `${BASE_URL}/rovers/curiosity/photos?${params}`;
-    }
+    // Use a default date if none is provided to ensure we get photos
+    // Using a date that's more likely to have photos for most rovers
+    const defaultDate = '2023-06-15'; // Mid-2023 date with activity
+    const dateToUse = earthDate || defaultDate;
+    
+    const targetRover = rover === 'all' ? 'curiosity' : rover;
     
     const params = new URLSearchParams({
       api_key: NASA_API_KEY,
       page: page.toString(),
+      earth_date: dateToUse,
     });
     
-    if (camera && camera !== 'all') params.append('camera', camera);
-    if (earthDate) params.append('earth_date', earthDate);
+    if (camera && camera !== 'all') {
+      params.append('camera', camera);
+    }
     
-    return `${BASE_URL}/rovers/${rover}/photos${earthDate ? '' : '/latest'}?${params}`;
+    return `${BASE_URL}/rovers/${targetRover}/photos?${params}`;
   };
 
   return useQuery<NASAApiResponse>({
@@ -44,12 +39,23 @@ export const useRoverPhotos = ({ rover, camera, earthDate, page = 1 }: UseRoverP
     queryFn: async () => {
       const response = await fetch(buildUrl());
       if (!response.ok) {
-        throw new Error('Failed to fetch rover photos');
+        if (response.status === 429) {
+          throw new Error('Rate limit dépassé. Veuillez réessayer dans quelques minutes.');
+        }
+        throw new Error(`Erreur API: ${response.status}`);
       }
       return response.json();
     },
     enabled: !!rover,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: (failureCount, error) => {
+      // Don't retry on rate limit errors
+      if (error.message.includes('Rate limit')) {
+        return false;
+      }
+      return failureCount < 2;
+    },
+    retryDelay: 2000, // 2 seconds between retries
   });
 };
 

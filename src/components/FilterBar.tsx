@@ -99,11 +99,13 @@ const FilterBar = ({
               value={selectedDate}
               onChange={(e) => onDateChange(e.target.value)}
               className="bg-secondary/50 border-border pl-10"
+              placeholder="2023-06-15"
               max="2024-12-31"
               min="2004-01-04"
             />
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           </div>
+          <p className="text-xs text-muted-foreground">Défaut: 15 juin 2023</p>
         </div>
 
         <Button
