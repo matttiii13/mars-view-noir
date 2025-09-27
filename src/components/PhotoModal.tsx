@@ -1,16 +1,32 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Camera, Download, ExternalLink } from "lucide-react";
+import { Calendar, Camera, Download, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { RoverPhoto } from "@/types/nasa";
 
 interface PhotoModalProps {
   photo: RoverPhoto | null;
   isOpen: boolean;
   onClose: () => void;
+  onNext?: () => void;
+  onPrevious?: () => void;
+  hasNext?: boolean;
+  hasPrevious?: boolean;
+  currentIndex?: number;
+  totalPhotos?: number;
 }
 
-const PhotoModal = ({ photo, isOpen, onClose }: PhotoModalProps) => {
+const PhotoModal = ({ 
+  photo, 
+  isOpen, 
+  onClose, 
+  onNext, 
+  onPrevious, 
+  hasNext = false, 
+  hasPrevious = false,
+  currentIndex = 1,
+  totalPhotos = 1
+}: PhotoModalProps) => {
   if (!photo) return null;
 
   const handleDownload = () => {
@@ -30,8 +46,33 @@ const PhotoModal = ({ photo, isOpen, onClose }: PhotoModalProps) => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl bg-card/95 backdrop-blur-sm border-border">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-foreground">
-            Photo Mars #{photo.id}
+          <DialogTitle className="text-xl font-semibold text-foreground flex items-center justify-between">
+            <span>Photo Mars #{photo.id}</span>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-muted-foreground font-mono">
+                {currentIndex} / {totalPhotos}
+              </span>
+              <div className="flex gap-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onPrevious}
+                  disabled={!hasPrevious}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onNext}
+                  disabled={!hasNext}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
           </DialogTitle>
         </DialogHeader>
         
@@ -40,8 +81,35 @@ const PhotoModal = ({ photo, isOpen, onClose }: PhotoModalProps) => {
             <img
               src={photo.img_src}
               alt={`Mars photo by ${photo.rover.name} rover`}
-              className="w-full max-h-[60vh] object-contain rounded-lg shadow-deep"
+              className="w-full max-h-[60vh] object-contain rounded-lg shadow-deep cursor-pointer"
+              onClick={onNext}
             />
+            
+            {/* Navigation overlay */}
+            <div className="absolute inset-0 flex">
+              <div 
+                className="w-1/2 cursor-pointer flex items-center justify-start pl-4 opacity-0 hover:opacity-100 transition-opacity"
+                onClick={onPrevious}
+              >
+                {hasPrevious && (
+                  <div className="bg-black/50 backdrop-blur-sm rounded-full p-2">
+                    <ChevronLeft className="w-6 h-6 text-white" />
+                  </div>
+                )}
+              </div>
+              <div 
+                className="w-1/2 cursor-pointer flex items-center justify-end pr-4 opacity-0 hover:opacity-100 transition-opacity"
+                onClick={onNext}
+              >
+                {hasNext && (
+                  <div className="bg-black/50 backdrop-blur-sm rounded-full p-2">
+                    <ChevronRight className="w-6 h-6 text-white" />
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* Action buttons */}
             <div className="absolute top-4 right-4 space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <Button
                 size="sm"

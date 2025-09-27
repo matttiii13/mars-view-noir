@@ -11,15 +11,14 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
   const [selectedCamera, setSelectedCamera] = useState('all');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedSol, setSelectedSol] = useState('');
+  const [selectedSol, setSelectedSol] = useState('1000');
   const [page, setPage] = useState(1);
   const [selectedPhoto, setSelectedPhoto] = useState<RoverPhoto | null>(null);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   const [allPhotos, setAllPhotos] = useState<RoverPhoto[]>([]);
 
   const { data, isLoading, error, refetch } = useCuriosityPhotos({
     camera: selectedCamera,
-    earthDate: selectedDate,
     sol: selectedSol,
     page,
   });
@@ -44,23 +43,36 @@ const Index = () => {
     handleFilterChange();
   };
 
-  const handleDateChange = (date: string) => {
-    setSelectedDate(date);
-    setSelectedSol(''); // Clear sol when date is set
-    handleFilterChange();
-  };
-
   const handleSolChange = (sol: string) => {
     setSelectedSol(sol);
-    setSelectedDate(''); // Clear date when sol is set
     handleFilterChange();
   };
 
   const handleReset = () => {
     setSelectedCamera('all');
-    setSelectedDate('');
-    setSelectedSol('');
+    setSelectedSol('1000');
     handleFilterChange();
+  };
+
+  const handlePhotoClick = (photo: RoverPhoto, index: number) => {
+    setSelectedPhoto(photo);
+    setSelectedPhotoIndex(index);
+  };
+
+  const handleNextPhoto = () => {
+    if (selectedPhotoIndex < allPhotos.length - 1) {
+      const nextIndex = selectedPhotoIndex + 1;
+      setSelectedPhotoIndex(nextIndex);
+      setSelectedPhoto(allPhotos[nextIndex]);
+    }
+  };
+
+  const handlePreviousPhoto = () => {
+    if (selectedPhotoIndex > 0) {
+      const prevIndex = selectedPhotoIndex - 1;
+      setSelectedPhotoIndex(prevIndex);
+      setSelectedPhoto(allPhotos[prevIndex]);
+    }
   };
 
   const loadMore = () => {
@@ -101,10 +113,8 @@ const Index = () => {
         <main className="container mx-auto px-6 py-8 space-y-8">
           <CuriosityFilters
             selectedCamera={selectedCamera}
-            selectedDate={selectedDate}
             selectedSol={selectedSol}
             onCameraChange={handleCameraChange}
-            onDateChange={handleDateChange}
             onSolChange={handleSolChange}
             onReset={handleReset}
           />
@@ -150,7 +160,7 @@ const Index = () => {
                       >
                         <RoverCard
                           photo={photo}
-                          onClick={() => setSelectedPhoto(photo)}
+                          onClick={() => handlePhotoClick(photo, index)}
                         />
                       </div>
                     ))}
@@ -202,6 +212,12 @@ const Index = () => {
         photo={selectedPhoto}
         isOpen={!!selectedPhoto}
         onClose={() => setSelectedPhoto(null)}
+        onNext={handleNextPhoto}
+        onPrevious={handlePreviousPhoto}
+        hasNext={selectedPhotoIndex < allPhotos.length - 1}
+        hasPrevious={selectedPhotoIndex > 0}
+        currentIndex={selectedPhotoIndex + 1}
+        totalPhotos={allPhotos.length}
       />
     </div>
   );
