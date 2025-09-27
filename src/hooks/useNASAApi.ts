@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { RoverPhoto, NASAApiResponse } from '@/types/nasa';
 
-const NASA_API_KEY = 'DEMO_KEY'; // Using demo key for public access
+const NASA_API_KEY = 'ND82eSeT3GHG9KAXe5xLI6JDPH4smLWbfKLIMwZy';
 const BASE_URL = 'https://api.nasa.gov/mars-photos/api/v1';
 
 interface UseRoverPhotosParams {
