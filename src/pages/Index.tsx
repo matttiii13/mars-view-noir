@@ -3,6 +3,7 @@ import { useCuriosityPhotos } from '@/hooks/useNASAApi';
 import { RoverPhoto } from '@/types/nasa';
 import StarField from '@/components/MarsStars';
 import CuriosityFilters from '@/components/CuriosityFilters';
+import SolSlider from '@/components/SolSlider';
 import RoverCard from '@/components/RoverCard';
 import PhotoModal from '@/components/PhotoModal';
 import { Button } from '@/components/ui/button';
@@ -114,16 +115,14 @@ const Index = () => {
           <div className="container mx-auto px-6 py-4">
             <CuriosityFilters
               selectedCamera={selectedCamera}
-              selectedSol={selectedSol}
               onCameraChange={handleCameraChange}
-              onSolChange={handleSolChange}
               onReset={handleReset}
             />
           </div>
         </div>
 
         {/* Main Content */}
-        <main className="container mx-auto px-6 py-8 space-y-8">
+        <main className="container mx-auto px-6 py-8 pb-24 space-y-8">{/* pb-24 pour faire de la place au slider fixe */}
           {error && (
             <Alert className="bg-destructive/10 border-destructive/20">
               <AlertCircle className="h-4 w-4" />
@@ -223,6 +222,11 @@ const Index = () => {
         hasPrevious={selectedPhotoIndex > 0}
         currentIndex={selectedPhotoIndex + 1}
         totalPhotos={allPhotos.length}
+      />
+
+      <SolSlider
+        selectedSol={selectedSol}
+        onSolChange={handleSolChange}
       />
     </div>
   );
