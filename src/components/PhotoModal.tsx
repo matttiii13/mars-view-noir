@@ -173,15 +173,15 @@ const PhotoModal = ({
         className={`${
           isFullscreen 
             ? 'max-w-none w-screen h-screen max-h-none p-0 bg-black border-none'
-            : 'max-w-4xl bg-card/95 backdrop-blur-sm border-border'
+            : 'max-w-4xl bg-card/95 backdrop-blur-sm border-border mt-4 md:mt-auto mb-4 md:mb-auto max-h-[95vh] overflow-y-auto'
         } transition-all duration-300`}
       >
         {!isFullscreen ? (
-          <DialogHeader>
+          <DialogHeader className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border/20 pb-4 mb-4">
             <DialogTitle className="text-xl font-semibold text-foreground flex items-center justify-between">
-              <span>Photo Mars #{photo.id}</span>
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-muted-foreground font-mono">
+              <span className="text-base md:text-xl">Photo Mars #{photo.id}</span>
+              <div className="flex items-center gap-2 md:gap-4">
+                <span className="text-xs md:text-sm text-muted-foreground font-mono">
                   {currentIndex} / {totalPhotos}
                 </span>
                 <div className="flex gap-1">
@@ -211,7 +211,7 @@ const PhotoModal = ({
           </DialogHeader>
         ) : null}
         
-        <div className={`${isFullscreen ? 'h-full' : 'space-y-6'}`}>
+        <div className={`${isFullscreen ? 'h-full' : 'space-y-4 md:space-y-6'}`}>
           <div 
             ref={containerRef}
             className={`relative group ${
@@ -227,7 +227,7 @@ const PhotoModal = ({
               className={`${
                 isFullscreen 
                   ? 'max-h-full max-w-full' 
-                  : 'w-full max-h-[60vh]'
+                  : 'w-full max-h-[50vh] md:max-h-[60vh]'
               } object-contain rounded-lg shadow-deep select-none`}
               style={imageStyle}
               onClick={handleImageClick}
