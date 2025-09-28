@@ -362,7 +362,7 @@ const PhotoModal = ({
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Nom:</span>
                       <Badge variant="secondary" className="font-mono">
-                        {photo.rover.name}
+                        {photo.rover.name || 'Unknown'}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -371,16 +371,18 @@ const PhotoModal = ({
                         variant={photo.rover.status === 'active' ? 'default' : 'outline'}
                         className={photo.rover.status === 'active' ? 'bg-primary' : ''}
                       >
-                        {photo.rover.status}
+                        {photo.rover.status || 'Unknown'}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Atterrissage:</span>
-                      <span className="font-mono text-sm">{photo.rover.landing_date}</span>
+                      <span className="font-mono text-sm">{photo.rover.landing_date || 'N/A'}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Photos totales:</span>
-                      <span className="font-mono text-sm">{photo.rover.total_photos.toLocaleString()}</span>
+                      <span className="font-mono text-sm">
+                        {photo.rover.total_photos?.toLocaleString() || 'N/A'}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -390,29 +392,29 @@ const PhotoModal = ({
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-3">Détails de la photo</h3>
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Camera className="w-4 h-4 text-primary" />
-                      <span className="text-muted-foreground">Caméra:</span>
-                      <Badge variant="outline" className="border-primary/50 text-primary">
-                        {photo.camera.name}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-primary" />
-                      <span className="text-muted-foreground">Date (Terre):</span>
-                      <span className="font-mono text-sm">{photo.earth_date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-muted-foreground">Sol:</span>
-                      <span className="font-mono text-sm">{photo.sol}</span>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <Camera className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">Caméra:</span>
+                    <Badge variant="outline" className="border-primary/50 text-primary">
+                      {photo.camera.name || 'Unknown'}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">Date (Terre):</span>
+                    <span className="font-mono text-sm">{photo.earth_date || 'N/A'}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground">Sol:</span>
+                    <span className="font-mono text-sm">{photo.sol || 'N/A'}</span>
+                  </div>
                   </div>
                 </div>
 
-                <div className="p-4 bg-secondary/30 rounded-lg border border-border">
-                  <p className="text-sm text-muted-foreground mb-2">Nom complet de la caméra:</p>
-                  <p className="text-sm font-medium">{photo.camera.full_name}</p>
-                </div>
+              <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                <p className="text-sm text-muted-foreground mb-2">Nom complet de la caméra:</p>
+                <p className="text-sm font-medium">{photo.camera.full_name || 'Non disponible'}</p>
+              </div>
 
                 {/* Keyboard shortcuts help */}
                 <div className="p-3 bg-muted/20 rounded-lg border border-border/50">
