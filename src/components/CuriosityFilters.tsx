@@ -187,47 +187,15 @@ const CuriosityFilters = ({
             </div>
           </div>
 
-          {/* Sol Timeline - Vertical on mobile, horizontal on desktop */}
+          {/* Sol Timeline - Fixed position and enhanced controls */}
           <div className="lg:flex-1 space-y-3">
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-primary animate-glow" />
-              <label className="text-sm font-medium text-muted-foreground">
-                Sol martien
-              </label>
-            </div>
-            
-            <div className="space-y-3 p-3 lg:p-4 bg-secondary/20 rounded-lg border border-primary/20">
-              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-2">
-                <span className="text-xs text-muted-foreground order-1 lg:order-1">Sol 0</span>
-                <div className="text-center order-2 lg:order-2">
-                  <div className="text-lg lg:text-xl font-bold text-primary font-mono">
-                    Sol {solValue}
-                  </div>
-                  <div className="text-xs lg:text-sm text-muted-foreground">
-                    {getEarthDateFromSol(solValue)}
-                  </div>
-                </div>
-                <span className="text-xs text-muted-foreground order-3 lg:order-3">Sol 4000+</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary animate-glow" />
+                <label className="text-sm font-medium text-muted-foreground">
+                  Sol martien
+                </label>
               </div>
-              
-              <Slider
-                value={[solValue]}
-                onValueChange={(value) => onSolChange(value[0].toString())}
-                max={4000}
-                min={0}
-                step={1}
-                className="w-full"
-              />
-              
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span className="hidden lg:inline">5 août 2012</span>
-                <span className="lg:hidden">Début</span>
-                <span className="text-center">Mission Curiosity</span>
-                <span>Présent</span>
-              </div>
-            </div>
-            
-            <div className="flex justify-center lg:justify-end">
               <Button
                 onClick={onReset}
                 variant="outline"
@@ -236,6 +204,106 @@ const CuriosityFilters = ({
               >
                 Reset
               </Button>
+            </div>
+            
+            <div className="space-y-4 p-3 lg:p-4 bg-secondary/20 rounded-lg border border-primary/20">
+              {/* Sol Display and Fine Controls */}
+              <div className="flex items-center justify-center gap-4">
+                <Button
+                  onClick={() => onSolChange(Math.max(0, solValue - 1).toString())}
+                  variant="outline"
+                  size="sm"
+                  disabled={solValue <= 0}
+                  className="h-8 w-8 p-0 border-primary/30 hover:border-primary hover:bg-primary/10"
+                >
+                  -1
+                </Button>
+                
+                <Button
+                  onClick={() => onSolChange(Math.max(0, solValue - 10).toString())}
+                  variant="outline" 
+                  size="sm"
+                  disabled={solValue <= 10}
+                  className="h-8 px-2 border-primary/30 hover:border-primary hover:bg-primary/10"
+                >
+                  -10
+                </Button>
+                
+                <div className="text-center min-w-[120px]">
+                  <div className="text-lg lg:text-xl font-bold text-primary font-mono">
+                    Sol {solValue}
+                  </div>
+                  <div className="text-xs lg:text-sm text-muted-foreground">
+                    {getEarthDateFromSol(solValue)}
+                  </div>
+                </div>
+                
+                <Button
+                  onClick={() => onSolChange(Math.min(4000, solValue + 10).toString())}
+                  variant="outline"
+                  size="sm" 
+                  disabled={solValue >= 3990}
+                  className="h-8 px-2 border-primary/30 hover:border-primary hover:bg-primary/10"
+                >
+                  +10
+                </Button>
+                
+                <Button
+                  onClick={() => onSolChange(Math.min(4000, solValue + 1).toString())}
+                  variant="outline"
+                  size="sm"
+                  disabled={solValue >= 4000}
+                  className="h-8 w-8 p-0 border-primary/30 hover:border-primary hover:bg-primary/10"
+                >
+                  +1
+                </Button>
+              </div>
+              
+              {/* Slider with improved sensitivity */}
+              <div className="space-y-2">
+                <Slider
+                  value={[solValue]}
+                  onValueChange={(value) => onSolChange(value[0].toString())}
+                  max={4000}
+                  min={0}
+                  step={1}
+                  className="w-full cursor-pointer"
+                />
+                
+                <div className="flex justify-between text-xs text-muted-foreground px-1">
+                  <span>Sol 0</span>
+                  <span className="text-center">Mission Curiosity</span>
+                  <span>Sol 4000+</span>
+                </div>
+              </div>
+              
+              {/* Quick jump buttons */}
+              <div className="flex justify-center gap-2 pt-2">
+                <Button
+                  onClick={() => onSolChange("0")}
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs px-2 py-1 h-auto text-muted-foreground hover:text-primary hover:bg-primary/10"
+                >
+                  Atterrissage
+                </Button>
+                <Button
+                  onClick={() => onSolChange("100")}
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs px-2 py-1 h-auto text-muted-foreground hover:text-primary hover:bg-primary/10"
+                >
+                  Sol 100
+                </Button>
+                <Button
+                  onClick={() => onSolChange("1000")}
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs px-2 py-1 h-auto text-muted-foreground hover:text-primary hover:bg-primary/10"
+                >
+                  Sol 1000
+                </Button>
+              </div>
             </div>
           </div>
         </div>
