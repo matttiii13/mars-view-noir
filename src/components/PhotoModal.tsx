@@ -28,6 +28,9 @@ const PhotoModal = ({
   currentIndex = 1,
   totalPhotos = 1
 }: PhotoModalProps) => {
+  // Early return MUST be before any hooks
+  if (!photo) return null;
+
   const [zoom, setZoom] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -35,8 +38,6 @@ const PhotoModal = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  if (!photo) return null;
 
   // Reset zoom and position when photo changes
   useEffect(() => {
