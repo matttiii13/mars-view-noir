@@ -9,18 +9,18 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Mars Theme - Red Palette */
-    --background: 15 25% 8%;
+    --background: 0 25% 8%;
     --foreground: 0 15% 95%;
 
-    --card: 15 20% 12%;
+    --card: 0 20% 12%;
     --card-foreground: 0 10% 92%;
 
-    --popover: 15 20% 12%;
+    --popover: 0 20% 12%;
     --popover-foreground: 0 10% 92%;
 
     /* Mars Red Primary */
-    --primary: 15 85% 55%;
-    --primary-foreground: 15 25% 8%;
+    --primary: 0 85% 55%;
+    --primary-foreground: 0 25% 8%;
 
     /* Dark Red Secondary */
     --secondary: 0 30% 15%;
@@ -31,25 +31,25 @@ All colors MUST be HSL.
 
     /* Red Accent */
     --accent: 0 90% 60%;
-    --accent-foreground: 15 25% 8%;
+    --accent-foreground: 0 25% 8%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 5 20% 18%;
     --input: 5 15% 15%;
-    --ring: 15 85% 55%;
+    --ring: 0 85% 55%;
 
     --radius: 0.75rem;
 
     /* Mars Gradients */
-    --gradient-mars: linear-gradient(135deg, hsl(15 25% 8%), hsl(0 30% 12%));
-    --gradient-dust: linear-gradient(45deg, hsl(15 85% 55% / 0.1), hsl(0 90% 60% / 0.1));
-    --gradient-sunset: linear-gradient(135deg, hsl(15 85% 55%), hsl(0 90% 60%));
+    --gradient-mars: linear-gradient(135deg, hsl(0 25% 8%), hsl(0 30% 12%));
+    --gradient-dust: linear-gradient(45deg, hsl(0 85% 55% / 0.1), hsl(0 90% 60% / 0.1));
+    --gradient-sunset: linear-gradient(135deg, hsl(0 85% 55%), hsl(0 90% 60%));
     
     /* Mars Shadows */
-    --shadow-mars: 0 0 25px hsl(15 85% 55% / 0.3);
-    --shadow-dust: 0 10px 30px -5px hsl(15 25% 0% / 0.8);
+    --shadow-mars: 0 0 25px hsl(0 85% 55% / 0.3);
+    --shadow-dust: 0 10px 30px -5px hsl(0 25% 0% / 0.8);
     
     /* Animations */
     --transition-mars: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -58,17 +58,17 @@ All colors MUST be HSL.
 
   .dark {
     /* Mars theme in dark mode too */
-    --background: 15 25% 8%;
+    --background: 0 25% 8%;
     --foreground: 0 15% 95%;
 
-    --card: 15 20% 12%;
+    --card: 0 20% 12%;
     --card-foreground: 0 10% 92%;
 
-    --popover: 15 20% 12%;
+    --popover: 0 20% 12%;
     --popover-foreground: 0 10% 92%;
 
-    --primary: 15 85% 55%;
-    --primary-foreground: 15 25% 8%;
+    --primary: 0 85% 55%;
+    --primary-foreground: 0 25% 8%;
 
     --secondary: 0 30% 15%;
     --secondary-foreground: 0 10% 88%;
@@ -77,14 +77,14 @@ All colors MUST be HSL.
     --muted-foreground: 5 15% 65%;
 
     --accent: 0 90% 60%;
-    --accent-foreground: 15 25% 8%;
+    --accent-foreground: 0 25% 8%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 5 20% 18%;
     --input: 5 15% 15%;
-    --ring: 15 85% 55%;
+    --ring: 0 85% 55%;
   }
 }
 
