@@ -90,8 +90,8 @@ export default {
           "50%": { transform: "translateY(-10px)" },
         },
         "glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(15 85% 55% / 0.3)" },
-          "50%": { boxShadow: "0 0 30px hsl(15 85% 55% / 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(0 85% 55% / 0.3)" },
+          "50%": { boxShadow: "0 0 30px hsl(0 85% 55% / 0.6)" },
         },
         "dust": {
           "0%": { transform: "translateX(-100%)", opacity: "0" },
