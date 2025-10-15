@@ -58,9 +58,9 @@ const MarsStars = () => {
 
         // Mars-like star colors (reddish white)
         const colors = [
-          `rgba(255, 220, 180, ${star.opacity})`, // Warm white
-          `rgba(255, 200, 150, ${star.opacity})`, // Orange-ish
-          `rgba(255, 180, 120, ${star.opacity})`, // More orange
+          `rgba(255, 220, 220, ${star.opacity})`, // Warm white
+          `rgba(255, 180, 180, ${star.opacity})`, // Red-ish
+          `rgba(255, 150, 150, ${star.opacity})`, // More red
         ];
         
         ctx.beginPath();
@@ -81,7 +81,7 @@ const MarsStars = () => {
 
         ctx.beginPath();
         ctx.arc(dust.x, dust.y, dust.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 100, 50, ${dust.opacity})`;
+        ctx.fillStyle = `rgba(200, 50, 50, ${dust.opacity})`;
         ctx.fill();
       });
 

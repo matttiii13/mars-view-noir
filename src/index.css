@@ -8,44 +8,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Mars Theme - Red/Orange Palette */
+    /* Mars Theme - Red Palette */
     --background: 15 25% 8%;
-    --foreground: 25 15% 95%;
+    --foreground: 0 15% 95%;
 
     --card: 15 20% 12%;
-    --card-foreground: 25 10% 92%;
+    --card-foreground: 0 10% 92%;
 
     --popover: 15 20% 12%;
-    --popover-foreground: 25 10% 92%;
+    --popover-foreground: 0 10% 92%;
 
     /* Mars Red Primary */
     --primary: 15 85% 55%;
     --primary-foreground: 15 25% 8%;
 
-    /* Dark Orange Secondary */
-    --secondary: 25 30% 15%;
-    --secondary-foreground: 25 10% 88%;
+    /* Dark Red Secondary */
+    --secondary: 0 30% 15%;
+    --secondary-foreground: 0 10% 88%;
 
-    --muted: 20 20% 12%;
-    --muted-foreground: 20 15% 65%;
+    --muted: 5 20% 12%;
+    --muted-foreground: 5 15% 65%;
 
-    /* Orange Accent */
-    --accent: 25 90% 60%;
+    /* Red Accent */
+    --accent: 0 90% 60%;
     --accent-foreground: 15 25% 8%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 20 20% 18%;
-    --input: 20 15% 15%;
+    --border: 5 20% 18%;
+    --input: 5 15% 15%;
     --ring: 15 85% 55%;
 
     --radius: 0.75rem;
 
     /* Mars Gradients */
-    --gradient-mars: linear-gradient(135deg, hsl(15 25% 8%), hsl(25 30% 12%));
-    --gradient-dust: linear-gradient(45deg, hsl(15 85% 55% / 0.1), hsl(25 90% 60% / 0.1));
-    --gradient-sunset: linear-gradient(135deg, hsl(15 85% 55%), hsl(25 90% 60%));
+    --gradient-mars: linear-gradient(135deg, hsl(15 25% 8%), hsl(0 30% 12%));
+    --gradient-dust: linear-gradient(45deg, hsl(15 85% 55% / 0.1), hsl(0 90% 60% / 0.1));
+    --gradient-sunset: linear-gradient(135deg, hsl(15 85% 55%), hsl(0 90% 60%));
     
     /* Mars Shadows */
     --shadow-mars: 0 0 25px hsl(15 85% 55% / 0.3);
@@ -59,31 +59,31 @@ All colors MUST be HSL.
   .dark {
     /* Mars theme in dark mode too */
     --background: 15 25% 8%;
-    --foreground: 25 15% 95%;
+    --foreground: 0 15% 95%;
 
     --card: 15 20% 12%;
-    --card-foreground: 25 10% 92%;
+    --card-foreground: 0 10% 92%;
 
     --popover: 15 20% 12%;
-    --popover-foreground: 25 10% 92%;
+    --popover-foreground: 0 10% 92%;
 
     --primary: 15 85% 55%;
     --primary-foreground: 15 25% 8%;
 
-    --secondary: 25 30% 15%;
-    --secondary-foreground: 25 10% 88%;
+    --secondary: 0 30% 15%;
+    --secondary-foreground: 0 10% 88%;
 
-    --muted: 20 20% 12%;
-    --muted-foreground: 20 15% 65%;
+    --muted: 5 20% 12%;
+    --muted-foreground: 5 15% 65%;
 
-    --accent: 25 90% 60%;
+    --accent: 0 90% 60%;
     --accent-foreground: 15 25% 8%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 20 20% 18%;
-    --input: 20 15% 15%;
+    --border: 5 20% 18%;
+    --input: 5 15% 15%;
     --ring: 15 85% 55%;
   }
 }
