@@ -8,7 +8,7 @@ interface SolSliderProps {
 }
 
 const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
-  const solValue = selectedSol ? parseInt(selectedSol) : 1000;
+  const solValue = selectedSol ? parseInt(selectedSol) : 0;
   
   // Fonction pour calculer approximativement la date terrestre basée sur le sol
   const getEarthDateFromSol = (sol: number) => {
