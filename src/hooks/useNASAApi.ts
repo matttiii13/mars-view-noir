@@ -14,19 +14,28 @@ interface UseRoverPhotosParams {
 
 export const useCuriosityPhotos = ({ camera, earthDate, sol, page = 1 }: UseRoverPhotosParams) => {
   const buildUrl = () => {
-    // Use a recent sol if neither earthDate nor sol is provided
-    const defaultSol = '4701';
+    // Use sol 100 as default (has many available photos)
+    const defaultSol = '100';
+    
+    // Get target sol first
+    const targetSol = sol && sol.trim() !== '' ? parseInt(sol) : parseInt(defaultSol);
+    
+    // For early sols (< 1000), use ascending order to get older data
+    // For recent sols (>= 1000), use descending order to get recent data
+    const isEarlySol = targetSol < 1000;
+    const orderParam = isEarlySol 
+      ? 'sol+asc,instrument_sort+asc,sample_type_sort+asc,+date_taken+desc'
+      : 'sol+desc,instrument_sort+asc,sample_type_sort+asc,+date_taken+desc';
     
     const params = new URLSearchParams({
-      order: 'sol+desc,instrument_sort+asc,sample_type_sort+asc,+date_taken+desc',
+      order: orderParam,
       per_page: '50', // Get more results to filter client-side
       page: (page - 1).toString(), // API uses 0-based indexing
       mission: 'msl', // Mars Science Laboratory (Curiosity)
     });
     
     // Get a wider range and filter client-side since the API filtering is inconsistent
-    const targetSol = sol && sol.trim() !== '' ? parseInt(sol) : parseInt(defaultSol);
-    const solRange = 100; // Get a range around the target sol
+    const solRange = 200; // Get a wider range for better results
     params.set('sol__gte', Math.max(0, targetSol - solRange).toString());
     params.set('sol__lte', (targetSol + solRange).toString());
     
@@ -63,7 +72,19 @@ export const useCuriosityPhotos = ({ camera, earthDate, sol, page = 1 }: UseRove
       
       // Filter by exact sol client-side since API filtering is inconsistent
       const targetSol = sol && sol.trim() !== '' ? parseInt(sol) : parseInt(defaultSol);
-      const filteredItems = data.items?.filter((item: any) => item.sol === targetSol) || [];
+      let filteredItems = data.items?.filter((item: any) => item.sol === targetSol) || [];
+      
+      // If no exact match found, try to find items within a small range (±5 sols)
+      if (filteredItems.length === 0 && data.items) {
+        filteredItems = data.items.filter((item: any) => 
+          Math.abs(item.sol - targetSol) <= 5
+        );
+      }
+      
+      // If still no match, take all available items (fallback)
+      if (filteredItems.length === 0 && data.items) {
+        filteredItems = data.items;
+      }
       
       // Take only the first 25 results for pagination
       const startIndex = (page - 1) * 25;

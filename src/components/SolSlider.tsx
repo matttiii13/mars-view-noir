@@ -8,7 +8,7 @@ interface SolSliderProps {
 }
 
 const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
-  const solValue = selectedSol ? parseInt(selectedSol) : 1000;
+  const solValue = selectedSol ? parseInt(selectedSol) : 100;
   
   // Fonction pour calculer approximativement la date terrestre basée sur le sol
   const getEarthDateFromSol = (sol: number) => {
@@ -108,6 +108,14 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
                 className="text-xs px-1 py-1 h-6 text-muted-foreground hover:text-primary hover:bg-primary/10"
               >
                 0
+              </Button>
+              <Button
+                onClick={() => onSolChange("100")}
+                variant="ghost"
+                size="sm"
+                className="text-xs px-1 py-1 h-6 text-primary hover:text-primary hover:bg-primary/20 border border-primary/30"
+              >
+                100
               </Button>
               <Button
                 onClick={() => onSolChange("1000")}
@@ -218,10 +226,18 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
               Sol 1000
             </Button>
             <Button
-              onClick={() => onSolChange("4701")}
+              onClick={() => onSolChange("100")}
               variant="ghost"
               size="sm"
               className="text-xs px-2 py-1 h-7 text-primary hover:text-primary hover:bg-primary/20 border border-primary/30"
+            >
+              Sol 100
+            </Button>
+            <Button
+              onClick={() => onSolChange("4701")}
+              variant="ghost"
+              size="sm"
+              className="text-xs px-2 py-1 h-7 text-muted-foreground hover:text-primary hover:bg-primary/10"
             >
               Latest
             </Button>
