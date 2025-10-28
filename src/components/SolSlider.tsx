@@ -8,7 +8,7 @@ interface SolSliderProps {
 }
 
 const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
-  const solValue = selectedSol ? parseInt(selectedSol) : 1000;
+  const solValue = selectedSol ? parseInt(selectedSol) : 100;
   
   // Fonction pour calculer approximativement la date terrestre basée sur le sol
   const getEarthDateFromSol = (sol: number) => {
@@ -66,20 +66,20 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
               </Button>
               
               <Button
-                onClick={() => onSolChange(Math.min(4000, solValue + 1).toString())}
+                onClick={() => onSolChange(Math.min(4800, solValue + 1).toString())}
                 variant="outline"
                 size="sm"
-                disabled={solValue >= 4000}
+                disabled={solValue >= 4800}
                 className="h-7 w-7 p-0 text-xs border-primary/30 hover:border-primary hover:bg-primary/10"
               >
                 +1
               </Button>
               
               <Button
-                onClick={() => onSolChange(Math.min(4000, solValue + 10).toString())}
+                onClick={() => onSolChange(Math.min(4800, solValue + 10).toString())}
                 variant="outline"
                 size="sm" 
-                disabled={solValue >= 3990}
+                disabled={solValue >= 4790}
                 className="h-7 px-2 text-xs border-primary/30 hover:border-primary hover:bg-primary/10"
               >
                 +10
@@ -93,7 +93,7 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
               <Slider
                 value={[solValue]}
                 onValueChange={(value) => onSolChange(value[0].toString())}
-                max={4000}
+                max={4800}
                 min={0}
                 step={1}
                 className="w-full cursor-pointer"
@@ -108,6 +108,14 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
                 className="text-xs px-1 py-1 h-6 text-muted-foreground hover:text-primary hover:bg-primary/10"
               >
                 0
+              </Button>
+              <Button
+                onClick={() => onSolChange("100")}
+                variant="ghost"
+                size="sm"
+                className="text-xs px-1 py-1 h-6 text-primary hover:text-primary hover:bg-primary/20 border border-primary/30"
+              >
+                100
               </Button>
               <Button
                 onClick={() => onSolChange("1000")}
@@ -159,20 +167,20 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
             </Button>
             
             <Button
-              onClick={() => onSolChange(Math.min(4000, solValue + 1).toString())}
+              onClick={() => onSolChange(Math.min(4800, solValue + 1).toString())}
               variant="outline"
               size="sm"
-              disabled={solValue >= 4000}
+              disabled={solValue >= 4800}
               className="h-7 w-7 p-0 text-xs border-primary/30 hover:border-primary hover:bg-primary/10"
             >
               +1
             </Button>
             
             <Button
-              onClick={() => onSolChange(Math.min(4000, solValue + 10).toString())}
+              onClick={() => onSolChange(Math.min(4800, solValue + 10).toString())}
               variant="outline"
               size="sm" 
-              disabled={solValue >= 3990}
+              disabled={solValue >= 4790}
               className="h-7 px-2 text-xs border-primary/30 hover:border-primary hover:bg-primary/10"
             >
               +10
@@ -184,7 +192,7 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
             <Slider
               value={[solValue]}
               onValueChange={(value) => onSolChange(value[0].toString())}
-              max={4000}
+              max={4800}
               min={0}
               step={1}
               className="w-full cursor-pointer"
@@ -216,6 +224,22 @@ const SolSlider = ({ selectedSol, onSolChange }: SolSliderProps) => {
               className="text-xs px-2 py-1 h-7 text-muted-foreground hover:text-primary hover:bg-primary/10"
             >
               Sol 1000
+            </Button>
+            <Button
+              onClick={() => onSolChange("100")}
+              variant="ghost"
+              size="sm"
+              className="text-xs px-2 py-1 h-7 text-primary hover:text-primary hover:bg-primary/20 border border-primary/30"
+            >
+              Sol 100
+            </Button>
+            <Button
+              onClick={() => onSolChange("4701")}
+              variant="ghost"
+              size="sm"
+              className="text-xs px-2 py-1 h-7 text-muted-foreground hover:text-primary hover:bg-primary/10"
+            >
+              Latest
             </Button>
           </div>
         </div>

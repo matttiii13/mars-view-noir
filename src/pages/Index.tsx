@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
   const [selectedCamera, setSelectedCamera] = useState('all');
-  const [selectedSol, setSelectedSol] = useState('4600');
+  const [selectedSol, setSelectedSol] = useState('100');
   const [page, setPage] = useState(1);
   const [selectedPhoto, setSelectedPhoto] = useState<RoverPhoto | null>(null);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
@@ -51,7 +51,7 @@ const Index = () => {
 
   const handleReset = () => {
     setSelectedCamera('all');
-    setSelectedSol('4600');
+    setSelectedSol('100');
     handleFilterChange();
   };
 
