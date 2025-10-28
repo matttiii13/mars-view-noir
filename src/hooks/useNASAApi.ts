@@ -15,7 +15,7 @@ interface UseRoverPhotosParams {
 export const useCuriosityPhotos = ({ camera, earthDate, sol, page = 1 }: UseRoverPhotosParams) => {
   const buildUrl = () => {
     // Use a recent sol if neither earthDate nor sol is provided
-    const defaultSol = '4600';
+    const defaultSol = '4701';
     
     const params = new URLSearchParams({
       order: 'sol+desc,instrument_sort+asc,sample_type_sort+asc,+date_taken+desc',
@@ -62,7 +62,7 @@ export const useCuriosityPhotos = ({ camera, earthDate, sol, page = 1 }: UseRove
       const data = await response.json();
       
       // Filter by exact sol client-side since API filtering is inconsistent
-      const targetSol = sol && sol.trim() !== '' ? parseInt(sol) : 1000;
+      const targetSol = sol && sol.trim() !== '' ? parseInt(sol) : parseInt(defaultSol);
       const filteredItems = data.items?.filter((item: any) => item.sol === targetSol) || [];
       
       // Take only the first 25 results for pagination
